@@ -1,0 +1,434 @@
+{
+	"info": {
+		"_postman_id": "91c280e5-05b1-4a0e-86cd-92604023ec35",
+		"name": "練習題目(書籍)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3409846"
+	},
+	"item": [
+		{
+			"name": "v1/show/{id}",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbWEuZG9ja2VyLmxvY2FsL2FwaS92MS9sb2dpbiIsImlhdCI6MTY4ODM2NDc1NywiZXhwIjoxNjg4MzY4MzU3LCJuYmYiOjE2ODgzNjQ3NTcsImp0aSI6IkdCbG9pa2VtaDdpSE9IeWUiLCJzdWIiOiI1IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.vkqDUXclsGMOHpHrGlBIRZfmnP7WOdNcDWuM1oDY5D0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://ma.docker.local/api/v1/books/1b5dcdc1-b5a5-4671-bb4b-a40bce418923",
+					"protocol": "http",
+					"host": [
+						"ma",
+						"docker",
+						"local"
+					],
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"1b5dcdc1-b5a5-4671-bb4b-a40bce418923"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "v1/books",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbWEuZG9ja2VyLmxvY2FsL2FwaS92MS9sb2dpbiIsImlhdCI6MTY4ODM2NDc1NywiZXhwIjoxNjg4MzY4MzU3LCJuYmYiOjE2ODgzNjQ3NTcsImp0aSI6IkdCbG9pa2VtaDdpSE9IeWUiLCJzdWIiOiI1IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.vkqDUXclsGMOHpHrGlBIRZfmnP7WOdNcDWuM1oDY5D0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://ma.docker.local/api/v1/books?page=1&size=30",
+					"protocol": "http",
+					"host": [
+						"ma",
+						"docker",
+						"local"
+					],
+					"path": [
+						"api",
+						"v1",
+						"books"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "30"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "v1/books/{id}",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbWEuZG9ja2VyLmxvY2FsL2FwaS92MS9sb2dpbiIsImlhdCI6MTY4ODM2NDc1NywiZXhwIjoxNjg4MzY4MzU3LCJuYmYiOjE2ODgzNjQ3NTcsImp0aSI6IkdCbG9pa2VtaDdpSE9IeWUiLCJzdWIiOiI1IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.vkqDUXclsGMOHpHrGlBIRZfmnP7WOdNcDWuM1oDY5D0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "GXSHCmDBeMXWGCa9vgOQWXIZOAnCQYdmsCWa3pn6",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ma.docker.local/api/v1/books/25d89d85-3889-4d87-8802-3f27cbf41fb8",
+					"protocol": "http",
+					"host": [
+						"ma",
+						"docker",
+						"local"
+					],
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"25d89d85-3889-4d87-8802-3f27cbf41fb8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "v1/books",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbWEuZG9ja2VyLmxvY2FsL2FwaS92MS9sb2dpbiIsImlhdCI6MTY4ODM2NDc1NywiZXhwIjoxNjg4MzY4MzU3LCJuYmYiOjE2ODgzNjQ3NTcsImp0aSI6IkdCbG9pa2VtaDdpSE9IeWUiLCJzdWIiOiI1IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.vkqDUXclsGMOHpHrGlBIRZfmnP7WOdNcDWuM1oDY5D0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "GXSHCmDBeMXWGCa9vgOQWXIZOAnCQYdmsCWa3pn6",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Vam000000 LLooogg Logstess\",\r\n    \"author\": \"Norris\",\r\n    // \"published_at\": \"2023-01-13 21:55:40\",\r\n    \"category\": \"財經\",\r\n    \"price\": 599,\r\n    \"quantity\": 30,\r\n    \"images\": [\r\n        {\r\n            \"name\": \"Sunshine\",\r\n            \"path\": \"https://images.unsplash.com/photo-1536484049453-85de4ea3db6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1021&q=80\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ma.docker.local/api/v1/books",
+					"protocol": "http",
+					"host": [
+						"ma",
+						"docker",
+						"local"
+					],
+					"path": [
+						"api",
+						"v1",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "v1/logout",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbWEuZG9ja2VyLmxvY2FsL2FwaS92MS9sb2dpbiIsImlhdCI6MTY4ODM2NDc1NywiZXhwIjoxNjg4MzY4MzU3LCJuYmYiOjE2ODgzNjQ3NTcsImp0aSI6IkdCbG9pa2VtaDdpSE9IeWUiLCJzdWIiOiI1IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.vkqDUXclsGMOHpHrGlBIRZfmnP7WOdNcDWuM1oDY5D0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "GXSHCmDBeMXWGCa9vgOQWXIZOAnCQYdmsCWa3pn6",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ma.docker.local/api/v1/logout",
+					"protocol": "http",
+					"host": [
+						"ma",
+						"docker",
+						"local"
+					],
+					"path": [
+						"api",
+						"v1",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "v1/login",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "GXSHCmDBeMXWGCa9vgOQWXIZOAnCQYdmsCWa3pn6",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"vvv2541@gmail.com\",\r\n    \"password\": \"aaa111\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ma.docker.local/api/v1/login",
+					"protocol": "http",
+					"host": [
+						"ma",
+						"docker",
+						"local"
+					],
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "v1/register",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "GXSHCmDBeMXWGCa9vgOQWXIZOAnCQYdmsCWa3pn6",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"vv\",\r\n    \"email\": \"vvv2541@gmail.com\",\r\n    \"password\": \"aaa111\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ma.docker.local/api/v1/register",
+					"protocol": "http",
+					"host": [
+						"ma",
+						"docker",
+						"local"
+					],
+					"path": [
+						"api",
+						"v1",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "books/{id}",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbWEuZG9ja2VyLmxvY2FsL2FwaS92MS9sb2dpbiIsImlhdCI6MTY4ODM2NDc1NywiZXhwIjoxNjg4MzY4MzU3LCJuYmYiOjE2ODgzNjQ3NTcsImp0aSI6IkdCbG9pa2VtaDdpSE9IeWUiLCJzdWIiOiI1IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.vkqDUXclsGMOHpHrGlBIRZfmnP7WOdNcDWuM1oDY5D0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "GXSHCmDBeMXWGCa9vgOQWXIZOAnCQYdmsCWa3pn6",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"NONO88880000---NONONNONONON\",\r\n    \"author\": \"Norris\",\r\n    // \"published_at\": \"2023-01-13 21:55:40\",\r\n    \"category\": \"財經\",\r\n    \"price\": 599,\r\n    \"quantity\": 30,\r\n    \"images\": [\r\n        {\r\n            \"name\": \"Sunshine\",\r\n            \"path\": \"https://images.unsplash.com/photo-1536484049453-85de4ea3db6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1021&q=80\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ma.docker.local/api/v1/books/25d89d85-3889-4d87-8802-3f27cbf41fb8",
+					"protocol": "http",
+					"host": [
+						"ma",
+						"docker",
+						"local"
+					],
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"25d89d85-3889-4d87-8802-3f27cbf41fb8"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
