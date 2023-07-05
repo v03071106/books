@@ -46,6 +46,18 @@ class Kernel extends HttpKernel
     ];
 
     /**
+     * The priority-sorted list of middleware.
+     *
+     * This forces non-global middleware to always be in the given order.
+     *
+     * @var array
+     */
+    protected $middlewarePriority = [
+        \App\Http\Middleware\JsonMiddleware::class,
+        \App\Http\Middleware\VerifyBearerMiddleware::class,
+    ];
+
+    /**
      * The application's route middleware.
      *
      * These middleware may be assigned to groups or used individually.
@@ -63,5 +75,7 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'verify.jsonResponse' => \App\Http\Middleware\JsonMiddleware::class,
+        'verify.bearer' => \App\Http\Middleware\VerifyBearerMiddleware::class,
     ];
 }

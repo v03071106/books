@@ -16,14 +16,16 @@ use App\Http\Controllers\Admin;
 */
 
 Route::group([
+        'middleware' => ['verify.jsonResponse'],
         'prefix' => 'v1'
     ], function ($router) {
-        Route::post('/login', [Admin\AuthController::class, 'login'])->name('login');
-        Route::post('/register', [Admin\AuthController::class, 'register'])->name('register');
-
-        Route::group(['middleware' => ['auth:api']], function() {
-            Route::post('/logout', [Admin\AuthController::class, 'logout'])->name('logout');
-            Route::resource('/books', Admin\BooksController::class)
+        $router->post('/login', [Admin\AuthController::class, 'login'])->name('login');
+        $router->post('/register', [Admin\AuthController::class, 'register'])->name('register');
+        $router->group([
+            'middleware' => ['verify.bearer', 'auth:api']
+        ], function($router) {
+            $router->post('/logout', [Admin\AuthController::class, 'logout'])->name('logout');
+            $router->resource('/books', Admin\BooksController::class)
                 ->parameters(['books' => 'id'])
                 ->only(['index', 'show', 'store', 'update', 'destroy']);
         });

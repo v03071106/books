@@ -4,11 +4,11 @@
   * centos / 7.9.2009
     * php / 8.1.20
     * apache / 2.4.6
-    * phpComposer / 2.5.8
+    * composer / 2.5.8
   * mariadb / 10.7.8
   * nginx / 1.22.1
   * redis / 6.2.11
-  * phpMyadmin / 5.2.1
+  * phpMyAdmin / 5.2.1
   * redisAdmin / 1.19.2
 
 ## 開發目標設定

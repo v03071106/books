@@ -23,7 +23,10 @@ class AuthController extends Controller
         $validated = $request->validated();
         $token = auth('api')->attempt($validated);
         if (false === $token) {
-            return $this->responseRender([], 401);
+            return $this->responseRender(
+                httpCode: 401,
+                message: '帳號或密碼錯誤, 請重新輸入。'
+            );
         }
         return $this->responseRender([
             'access_token' => $token,
@@ -45,9 +48,12 @@ class AuthController extends Controller
                 "email" => $validated["email"],
                 "password" => $validated["password"],
             ]);
-            return $this->responseRender([], 201);
+            return $this->responseRender(httpCode: 201);
         } catch (QueryException $exception) {
-            return $this->responseRender([], 400);
+            return $this->responseRender(
+                httpCode: 500,
+                message: $exception->getMessage()
+            );
         }
     }
 
@@ -58,6 +64,6 @@ class AuthController extends Controller
      */
     public function logout() {
         auth('api')->logout();
-        return $this->responseRender([]);
+        return $this->responseRender(httpCode: 204);
     }
 }

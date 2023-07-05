@@ -1,0 +1,706 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "L5 OpenApi",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "v03071106@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://ma.docker.local",
+            "description": "測試區主機"
+        },
+        {
+            "url": "https://ma.docker.local",
+            "description": "正式區主機"
+        },
+        {
+            "url": "http://ma.docker.local",
+            "description": "Localhost"
+        }
+    ],
+    "paths": {
+        "/api/v1/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "獲取憑證",
+                "description": "獲取憑證以便進行其他流程操作",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "電子信箱",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "密碼",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "請求已經被實現，而且有一個新的資源已經依據請求的需要而建立"
+                    },
+                    "401": {
+                        "description": "帳號或密碼錯誤, 請重新輸入。"
+                    },
+                    "422": {
+                        "description": "請求正確，但是由於含有格式錯誤，無法回應"
+                    }
+                }
+            }
+        },
+        "/api/v1/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "註銷憑證",
+                "description": "註銷已登入的使用者",
+                "responses": {
+                    "204": {
+                        "description": "伺服器成功處理了請求，沒有返回任何內容"
+                    },
+                    "401": {
+                        "description": "需要授權以回應請求"
+                    },
+                    "403": {
+                        "description": "用戶端並無訪問權限，例如未被授權，所以伺服器拒絕給予應有的回應"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "註冊使用者",
+                "description": "註冊使用者後方便登入上架書籍",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "名稱",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "電子信箱",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "密碼",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "請求已經被實現，而且有一個新的資源已經依據請求的需要而建立。"
+                    },
+                    "422": {
+                        "description": "請求正確，但是由於含有格式錯誤，無法回應。"
+                    },
+                    "500": {
+                        "description": "通用錯誤訊息，伺服器遇到了一個未曾預料的狀況，導致了它無法完成對請求的處理。"
+                    }
+                }
+            }
+        },
+        "/api/v1/books/{id}": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "取得指定UUID的書本資料",
+                "description": "只能查詢屬於自己的書本資料",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "UUID編號",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "fd824506-aa7f-4b61-987b-18a626a2cceb"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "請求已成功，請求所希望的回應頭或資料體將隨此回應返回",
+                        "content": {
+                            "application\\json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "description": "每筆資料內容",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "description": "UUID編號",
+                                                        "type": "string",
+                                                        "example": "fd824506-aa7f-4b61-987b-18a626a2cceb"
+                                                    },
+                                                    "title": {
+                                                        "description": "標題",
+                                                        "type": "string",
+                                                        "example": "理財通!!"
+                                                    },
+                                                    "author": {
+                                                        "description": "作者",
+                                                        "type": "string",
+                                                        "example": "阿囉哈"
+                                                    },
+                                                    "published_at": {
+                                                        "description": "發布時間",
+                                                        "type": "string|null",
+                                                        "example": "2023-07-04 23:44:37"
+                                                    },
+                                                    "category": {
+                                                        "description": "分類",
+                                                        "type": "string",
+                                                        "enum": [
+                                                            "投資理財",
+                                                            "文創手作",
+                                                            "心靈雞湯",
+                                                            "程式語言"
+                                                        ],
+                                                        "example": "阿囉哈"
+                                                    },
+                                                    "price": {
+                                                        "description": "價格",
+                                                        "type": "number",
+                                                        "format": "integer",
+                                                        "example": 3
+                                                    },
+                                                    "quantity": {
+                                                        "description": "數量",
+                                                        "type": "number",
+                                                        "format": "integer",
+                                                        "example": 3
+                                                    },
+                                                    "images": {
+                                                        "description": "圖檔資料內容",
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "name": {
+                                                                    "description": "圖片名稱",
+                                                                    "type": "string",
+                                                                    "example": "Sunshine"
+                                                                },
+                                                                "path": {
+                                                                    "description": "圖片路徑",
+                                                                    "type": "string",
+                                                                    "example": "https://images.unsplash.com/photo-1536484049453-85de4ea3db6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1021&q=80"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "需要授權以回應請求"
+                    },
+                    "403": {
+                        "description": "用戶端並無訪問權限，例如未被授權，所以伺服器拒絕給予應有的回應"
+                    },
+                    "404": {
+                        "description": "請求失敗，請求所希望得到的資源未被在伺服器上發現，但允許使用者的後續請求。"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "修改已上架書籍",
+                "description": "只有自己可以進行修改",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "UUID",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "25d89d85-3889-4d87-8802-3f27cbf41fb8"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "標題",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "標題!!"
+                        }
+                    },
+                    {
+                        "name": "author",
+                        "in": "query",
+                        "description": "作者",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "作者"
+                        }
+                    },
+                    {
+                        "name": "published_at",
+                        "in": "query",
+                        "description": "發佈時間",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time",
+                            "example": "2023-07-04 23:44:37"
+                        }
+                    },
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "類別",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "投資理財",
+                                "文創手作",
+                                "心靈雞湯",
+                                "程式語言"
+                            ],
+                            "example": "投資理財"
+                        }
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "description": "價格",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "100"
+                        }
+                    },
+                    {
+                        "name": "quantity",
+                        "in": "query",
+                        "description": "數量",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "999"
+                        }
+                    },
+                    {
+                        "name": "images[name]",
+                        "in": "query",
+                        "description": "圖片名稱",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Sunshine"
+                        }
+                    },
+                    {
+                        "name": "images[path]",
+                        "in": "query",
+                        "description": "圖片網址路徑",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "https://images.unsplash.com/photo-1536484049453-85de4ea3db6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1021&q=80"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "請求已經被實現，而且有一個新的資源已經依據請求的需要而建立。"
+                    },
+                    "401": {
+                        "description": "需要授權以回應請求"
+                    },
+                    "403": {
+                        "description": "用戶端並無訪問權限，例如未被授權，所以伺服器拒絕給予應有的回應"
+                    },
+                    "404": {
+                        "description": "請求失敗，請求所希望得到的資源未被在伺服器上發現，但允許使用者的後續請求。"
+                    },
+                    "422": {
+                        "description": "請求正確，但是由於含有格式錯誤，無法回應。"
+                    },
+                    "500": {
+                        "description": "通用錯誤訊息，伺服器遇到了一個未曾預料的狀況，導致了它無法完成對請求的處理。"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "刪除書本",
+                "description": "只能刪除屬於自己的書本資料",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "UUID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "資源成功建立"
+                    },
+                    "400": {
+                        "description": "請求格式錯誤"
+                    },
+                    "401": {
+                        "description": "需要授權以回應請求"
+                    },
+                    "403": {
+                        "description": "用戶端並無訪問權限，例如未被授權，所以伺服器拒絕給予應有的回應"
+                    },
+                    "404": {
+                        "description": "請求失敗，請求所希望得到的資源未被在伺服器上發現，但允許使用者的後續請求。"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/books": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "取得所有書本資料",
+                "description": "只能查詢屬於自己的書本資料",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "分頁",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "size",
+                        "in": "query",
+                        "description": "分頁呈現資料筆數",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "資源成功建立",
+                        "content": {
+                            "application\\json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "description": "當前頁面",
+                                                    "type": "integer"
+                                                },
+                                                "data": {
+                                                    "description": "每筆資料內容",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "description": "UUID編號",
+                                                                "type": "string",
+                                                                "example": "fd824506-aa7f-4b61-987b-18a626a2cceb"
+                                                            },
+                                                            "title": {
+                                                                "description": "標題",
+                                                                "type": "string",
+                                                                "example": "理財通!!"
+                                                            },
+                                                            "author": {
+                                                                "description": "作者",
+                                                                "type": "string",
+                                                                "example": "阿囉哈"
+                                                            },
+                                                            "published_at": {
+                                                                "description": "發布時間",
+                                                                "type": "string|null",
+                                                                "example": "2023-07-04 23:44:37"
+                                                            },
+                                                            "category": {
+                                                                "description": "分類",
+                                                                "type": "string",
+                                                                "enum": [
+                                                                    "投資理財",
+                                                                    "文創手作",
+                                                                    "心靈雞湯",
+                                                                    "程式語言"
+                                                                ],
+                                                                "example": "阿囉哈"
+                                                            },
+                                                            "price": {
+                                                                "description": "價格",
+                                                                "type": "number",
+                                                                "format": "integer",
+                                                                "example": 3
+                                                            },
+                                                            "quantity": {
+                                                                "description": "數量",
+                                                                "type": "number",
+                                                                "format": "integer",
+                                                                "example": 3
+                                                            },
+                                                            "images": {
+                                                                "description": "圖檔資料內容",
+                                                                "type": "array",
+                                                                "items": {
+                                                                    "properties": {
+                                                                        "name": {
+                                                                            "description": "圖片名稱",
+                                                                            "type": "string",
+                                                                            "example": "Sunshine"
+                                                                        },
+                                                                        "path": {
+                                                                            "description": "圖片路徑",
+                                                                            "type": "string",
+                                                                            "example": "https://images.unsplash.com/photo-1536484049453-85de4ea3db6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1021&q=80"
+                                                                        }
+                                                                    },
+                                                                    "type": "object"
+                                                                }
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "total": {
+                                                    "description": "總頁數",
+                                                    "type": "integer"
+                                                },
+                                                "per_page": {
+                                                    "description": "下頁",
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "需要授權以回應請求"
+                    },
+                    "403": {
+                        "description": "用戶端並無訪問權限，例如未被授權，所以伺服器拒絕給予應有的回應"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "上架書籍",
+                "description": "上架的書籍只有自己能看的到, 當然也只有自己可以進行修改、 刪除",
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "標題",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "標題!!"
+                        }
+                    },
+                    {
+                        "name": "author",
+                        "in": "query",
+                        "description": "作者",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "作者"
+                        }
+                    },
+                    {
+                        "name": "published_at",
+                        "in": "query",
+                        "description": "發佈時間",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time",
+                            "example": "2023-07-04 23:44:37"
+                        }
+                    },
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "類別",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "投資理財",
+                                "文創手作",
+                                "心靈雞湯",
+                                "程式語言"
+                            ],
+                            "example": "投資理財"
+                        }
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "description": "價格",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "100"
+                        }
+                    },
+                    {
+                        "name": "quantity",
+                        "in": "query",
+                        "description": "數量",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "999"
+                        }
+                    },
+                    {
+                        "name": "images[name]",
+                        "in": "query",
+                        "description": "圖片名稱",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Sunshine"
+                        }
+                    },
+                    {
+                        "name": "images[path]",
+                        "in": "query",
+                        "description": "圖片網址路徑",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "https://images.unsplash.com/photo-1536484049453-85de4ea3db6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1021&q=80"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "請求已經被實現，而且有一個新的資源已經依據請求的需要而建立。"
+                    },
+                    "401": {
+                        "description": "需要授權以回應請求"
+                    },
+                    "403": {
+                        "description": "用戶端並無訪問權限，例如未被授權，所以伺服器拒絕給予應有的回應"
+                    },
+                    "422": {
+                        "description": "請求正確，但是由於含有格式錯誤，無法回應。"
+                    },
+                    "500": {
+                        "description": "通用錯誤訊息，伺服器遇到了一個未曾預料的狀況，導致了它無法完成對請求的處理。"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "Authorization": {
+                "type": "http",
+                "name": "Authorization",
+                "in": "header",
+                "scheme": "Bearer"
+            }
+        }
+    }
+}

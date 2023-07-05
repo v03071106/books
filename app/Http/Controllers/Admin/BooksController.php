@@ -25,11 +25,15 @@ class BooksController extends Controller
         $show = $request->input('size', 10);
         $show = intval($show);
         $ownerId = auth('api')->user()->id;
-        $results = Books::where(['owner_id' => $ownerId])
+        $paginator = Books::where(['owner_id' => $ownerId])
             ->orderBy('id', 'DESC')
             ->paginate($show);
+        $paginator->transform(function ($item) {
+            $item->images = json_decode($item->images);
+            return $item;
+        });
         return $this->responseRender(
-            collect($results)
+            collect($paginator)
                 ->only(['data', 'total', 'per_page', 'current_page'])
                 ->toArray()
         );
@@ -56,11 +60,12 @@ class BooksController extends Controller
                 "quantity" => $validated["quantity"],
                 "images" => json_encode($validated["images"])
             ]);
-            return $this->responseRender([], 201);
+            return $this->responseRender(httpCode: 201);
         } catch (QueryException $exception) {
-            return $this->responseRender([
-                'message' => $exception->getMessage()
-            ], 400);
+            return $this->responseRender(
+                httpCode: 500,
+                message: $exception->getMessage()
+            );
         }
     }
 
@@ -75,7 +80,10 @@ class BooksController extends Controller
         $ownerId = auth('api')->user()->id;
         $books = Books::where(['id' => $id, 'owner_id' => $ownerId])->first();
         if (null === $books) {
-            return $this->responseRender([], 404);
+            return $this->responseRender(
+                httpCode: 404,
+                message: "{$id} 資料不存在, 請重新操作。"
+            );
         }
         return $this->responseRender($books->toArray());
     }
@@ -94,7 +102,10 @@ class BooksController extends Controller
             $ownerId = auth('api')->user()->id;
             $books = Books::where(['id' => $id, 'owner_id' => $ownerId])->first();
             if (null === $books) {
-                return $this->responseRender([], 404);
+                return $this->responseRender(
+                    httpCode: 404,
+                    message: "{$id} 資料不存在, 請重新操作。"
+                );
             }
             $books->title = $validated["title"];
             $books->author = $validated["author"];
@@ -104,11 +115,12 @@ class BooksController extends Controller
             $books->quantity = $validated["quantity"];
             $books->images = json_encode($validated["images"]);
             $books->save();
-            return $this->responseRender([], 201);
+            return $this->responseRender(httpCode: 201);
         } catch (QueryException $exception) {
-            return $this->responseRender([
-                'message' => $exception->getMessage()
-            ], 400);
+            return $this->responseRender(
+                httpCode: 500,
+                message: $exception->getMessage()
+            );
         }
     }
 
@@ -124,12 +136,18 @@ class BooksController extends Controller
             $ownerId = auth('api')->user()->id;
             $books = Books::where(['id' => $id, 'owner_id' => $ownerId])->first();
             if (null === $books) {
-                return $this->responseRender([], 404);
+                return $this->responseRender(
+                    httpCode: 404,
+                    message: "{$id} 資料不存在, 請重新操作。"
+                );
             }
             $books->delete();
-            return $this->responseRender([], 204);
+            return $this->responseRender(httpCode: 204);
         } catch (QueryException $exception) {
-            return $this->responseRender([], 400);
+            return $this->responseRender(
+                httpCode: 500,
+                message: $exception->getMessage()
+            );
         }
     }
 }

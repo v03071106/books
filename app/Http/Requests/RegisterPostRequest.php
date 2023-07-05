@@ -33,13 +33,29 @@ class RegisterPostRequest extends FormRequest
     }
 
     /**
+     * Get custom messages for validator errors.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.string' => '驗證的欄位 `:attribute` 必須符合字串格式',
+            'name.required' => '驗證的欄位 `:attribute` 為必填',
+            'email.email' => "驗證的欄位 `:attribute` 必須符合 email 格式",
+            'email.required' => '驗證的欄位 `:attribute` 為必填',
+            'password.required' => '驗證的欄位 `:attribute` 為必填',
+        ];
+    }
+
+    /**
     * Get the error messages for the defined validation rules.*
     * @return array
     */
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
-            'errors' => $validator->errors(),
+            'message' => $validator->errors(),
         ], 422));
     }
 }

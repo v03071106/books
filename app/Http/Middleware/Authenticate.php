@@ -6,8 +6,6 @@ use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
 {
-    use \App\Traits\OutPut;
-
     /**
      * Get the path the user should be redirected to when they are not authenticated.
      *
@@ -18,8 +16,6 @@ class Authenticate extends Middleware
     {
         if (! $request->expectsJson()) {
             return route('login');
-        } else {
-            return $this->responseRender([], 403);
         }
     }
 }
