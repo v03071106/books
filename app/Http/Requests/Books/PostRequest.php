@@ -30,10 +30,10 @@ class PostRequest extends FormRequest
             "author" => "required|string",
             "published_at" => "nullable|date",
             "category" => "required|string",
-            "price" => "numeric",
-            "quantity" => "numeric",
+            "price" => "digits_between:1, 32767",
+            "quantity" => "digits_between:1, 32767",
             "images.name"  => 'required|string',
-            "images.path"  => 'required|string',
+            "images.path"  => 'required|url',
             // "images.*.*"  => 'required|string',
         ];
     }
@@ -53,11 +53,10 @@ class PostRequest extends FormRequest
             'published_at.datetime' => '驗證的欄位 `:attribute` 必須符合字串格式',
             'category.string' => '驗證的欄位 `:attribute` 必須符合字串格式',
             'category.required' => '驗證的欄位 `:attribute` 為必填',
-            'price.number' => '驗證的欄位 `:attribute` 必須符合數字格式',
-            'quantity.number' => '驗證的欄位 `:attribute` 必須符合數字格式',
+            'price.digits_between' => '驗證的欄位 `:attribute` 必須符合數字格式且介於 :min ~ :max 之間',
+            'quantity.digits_between' => '驗證的欄位 `:attribute` 必須符合數字格式且介於 :min ~ :max 之間',
             'images.name.string' => '驗證的欄位 `:attribute` 必須符合字串格式',
-            'images.path.string' => '驗證的欄位 `:attribute` 必須符合字串格式',
-
+            'images.path.url' => '驗證的欄位 `:attribute` 必須符合網址格式',
         ];
     }
 

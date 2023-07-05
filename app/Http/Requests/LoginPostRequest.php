@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -27,7 +28,21 @@ class LoginPostRequest extends FormRequest
     {
         return [
             "email" => "required|email",
-            "password" => "required|string",
+            "password" => [
+                "required",
+                // 至少需要 8 个字符...
+                Password::min(8)
+                    // 至少需要一个大写字母和一个小写字母...
+                    ->mixedCase()
+                    // 至少需要一个字母...
+                    ->letters()
+                    // 至少需要一个数字...
+                    ->numbers()
+                    // 至少需要一个符号...
+                    ->symbols()
+                    // 确保密码在同一数据泄露中出现少于 0 次...
+                    ->uncompromised(),
+            ],
         ];
     }
 
