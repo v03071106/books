@@ -11,6 +11,8 @@
   * phpMyAdmin / 5.2.1
   * redisAdmin / 1.19.2
 
+## 訪問 api/doc 可以參考 swagger api 文檔
+
 ## 開發目標設定
 1. 登入之後才可以
     1. 新增 Book
