@@ -50,14 +50,14 @@ class PostRequest extends FormRequest
             'title.required' => '驗證的欄位 `:attribute` 為必填',
             'author.string' => '驗證的欄位 `:attribute` 必須符合字串格式',
             'author.required' => '驗證的欄位 `:attribute` 為必填',
+            'published_at.datetime' => '驗證的欄位 `:attribute` 必須符合字串格式',
             'category.string' => '驗證的欄位 `:attribute` 必須符合字串格式',
             'category.required' => '驗證的欄位 `:attribute` 為必填',
+            'price.number' => '驗證的欄位 `:attribute` 必須符合數字格式',
+            'quantity.number' => '驗證的欄位 `:attribute` 必須符合數字格式',
+            'images.name.string' => '驗證的欄位 `:attribute` 必須符合字串格式',
+            'images.path.string' => '驗證的欄位 `:attribute` 必須符合字串格式',
 
-
-
-            // 'email.email' => "驗證的欄位 `:attribute` 必須符合 email 格式",
-            // 'email.required' => '驗證的欄位 `:attribute` 為必填',
-            // 'password.required' => '驗證的欄位 `:attribute` 為必填',
         ];
     }
 
