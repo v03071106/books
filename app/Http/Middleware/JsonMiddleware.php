@@ -37,7 +37,7 @@ class JsonMiddleware
     {
         $request->headers->set('Accept', 'application/json');
         $response = $next($request);
-        if (false === $response instanceof JsonResponse) {
+        if (false === ($response instanceof JsonResponse)) {
             $response = $this->factory->json(
                 ['message' => 'error Json Response.'],
                 500,

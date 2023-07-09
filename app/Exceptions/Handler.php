@@ -2,7 +2,11 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -46,5 +50,31 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+
+        if (request()->is('api/*')) {
+            // 403
+            $this->renderable(function (UnauthorizedHttpException $e, $request) {
+                return response()->json([
+                    'message' => $e->getMessage()
+                ], 403);
+            });
+            // 404
+            $this->renderable(function (NotFoundHttpException $e, $request) {
+                $modelNotFoundException = $e->getPrevious();
+                if ($modelNotFoundException instanceof ModelNotFoundException) {
+                    // dd('xxx');
+                    // model not found exception
+                }
+                return response()->json([
+                    'message' => 'Not Found'
+                ], 404);
+            });
+            // 500
+            $this->renderable(function (QueryException $e, $request) {
+                return response()->json([
+                    'message' => $e->getMessage()
+                ], 500);
+            });
+        }
     }
 }
